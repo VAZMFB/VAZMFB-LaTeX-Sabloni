@@ -1,0 +1,196 @@
+% ----------------------------------------
+% ----------------------------------------
+% Šablon za prezentacije
+% Autori: 
+%  Miloš D. Petrašinović <mpetrasinovic@mas.bg.ac.rs>
+%  Nikola G. Raičević <nraicevic@mas.bg.ac.rs>
+%  Mihailo G. Petrović <petrovicmiha@gmail.com>
+% Masinski fakultet, Univerzitet u Beogradu
+% Katedra za vazduhoplovstvo, Struktura letelica
+% https://vazmfb.com
+% Beograd, 2021
+% ----------------------------------------
+% Zasnovano na:
+% beamerthemeKUL.sty
+% Created Januari 23, 2019
+% Author: Arthur Depicker
+% Version 2
+% ----------------------------------------
+% ----------------------------------------
+
+\mode<presentation>
+
+\usepackage{scalerel}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{shadings} 
+\usepackage{pdfrender}
+\usepackage{tcolorbox}
+
+% ORCID
+\usetikzlibrary{svg.path}
+\definecolor{orcidlogocol}{HTML}{A6CE39}
+\tikzset{
+  orcidlogo/.pic={
+    \fill[orcidlogocol] svg{M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z};
+    \fill[white] svg{M86.3,186.2H70.9V79.1h15.4v48.4V186.2z}
+                 svg{M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z}
+                 svg{M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1C84.2,46.7,88.7,51.3,88.7,56.8z};
+  }
+}
+
+\newcommand\orcid[2]{\href{https://orcid.org/#2}{#1 \mbox{\scalerel*{
+\begin{tikzpicture}[yscale=-1,transform shape]
+\pic{orcidlogo};
+\end{tikzpicture}
+}{|}}}}
+
+
+% Boje
+\definecolor{tamno-plava}{cmyk}{1,0.79,0.32,0.17}
+\definecolor{svetlo-plava}{cmyk}{0.93,0.64,0.03,0}
+\definecolor{svetlo-siva}{HTML}{dddddd}
+\definecolor{tamno-siva}{HTML}{aaaaaa}
+\definecolor{plava1}{HTML}{2382ca}
+\definecolor{plava2}{HTML}{0d324e}
+\definecolor{siva1}{HTML}{666666}
+\definecolor{siva2}{HTML}{777777}
+
+\setbeamerfont{title1}{size=\Large, series=\bf}%
+\setbeamerfont{title2}{size=\normalsize, series=\it}%%
+\setbeamerfont{institute1}{size=\small, series=\it}%
+\setbeamerfont{Author}{size=\large, series=\bf}%
+\setbeamerfont{Date}{size=\small}%, series=\rm}%%
+
+\setbeamertemplate{caption}[numbered]
+\def\authorsgroup#1{\gdef\@authorsgroup{#1}}
+\def\webpage#1{\gdef\@webpage{#1}}
+\def\webpageurl#1{\gdef\@webpageurl{#1}}
+
+% Slike
+\graphicspath{{}{slike/}}
+
+% ----------------------------------------
+% Naslovna strana
+% ----------------------------------------
+\pgfdeclarehorizontalshading{haed-g}{100bp}
+    {color(0bp)=(white); 
+    color(40bp)=(white);
+    color(100bp)=(svetlo-siva)}
+\pgfdeclarehorizontalshading{foot-g}{100bp}
+    {color(0bp)=(siva2); 
+    color(50bp)=(svetlo-siva);
+    color(100bp)=(svetlo-siva)}
+    
+\makeatletter
+\setbeamertemplate{title page}{%
+\begin{tikzpicture}[remember picture,overlay]
+\node[shading=haed-g, rectangle, anchor=north, minimum width=\paperwidth, minimum height=2.5cm] (head-bg) at (current page.north){};
+\node[text width=0.6\paperwidth,anchor=north west, inner xsep=6mm, inner ysep=7mm] (haed-txt) at (head-bg.north west) {\scshape \footnotesize \href{https://www.bg.ac.rs/}{\textcolor{tamno-siva}{University of Belgrade}}\par \href{https://www.mas.bg.ac.rs/}{Faculty of Mechanical Engineering}\par \href{http://vaz.mas.bg.ac.rs/}{\textcolor{tamno-plava}{Aerospace Engineering Department}}\par};
+\node[fill=svetlo-plava, anchor=north, minimum width=\paperwidth, minimum height=2mm, inner sep=0pt] (head-line) at (head-bg.south){};
+\node[anchor=north east, inner xsep=6mm, inner ysep=5.5mm] (haed-imgs) at (head-bg.north east) {%
+\href{http://vaz.mas.bg.ac.rs/}{\includegraphics[height=1.5cm]{vaz-logo-t}}
+\href{https://www.mas.bg.ac.rs/}{\includegraphics[height=1.5cm]{mfb-logo-t}}
+\href{https://www.bg.ac.rs/}{\includegraphics[height=1.5cm]{ub-logo-t}}};
+\end{tikzpicture}%
+
+\vspace{-6mm}
+\centering
+\href{\@webpageurl}{\texttt{\@webpage}} \\
+\usebeamerfont{title1}\textcolor{tamno-plava}{\href{\@webpageurl}{\inserttitle}} \\ \vspace{0.1cm}
+\usebeamerfont{title2}\insertsubtitle \\ \vspace{0.1cm}
+\usebeamerfont{Date}\normalfont{\insertdate} \\
+\begin{tikzpicture}[remember picture,overlay]
+\node[shading=foot-g, rectangle, anchor=south, minimum width=\paperwidth, minimum height=3cm] (foot-bg) at (current page.south){};
+\node[align=right, anchor=south east, inner xsep=6mm, inner ysep=10mm, text=tamno-plava, font=\small\itshape] (foot-authors) at (current page.south east){%
+    \@authorsgroup};
+\node[align=left, anchor=south west, inner xsep=6mm, inner ysep=10mm, text=siva1, font=\small\itshape] (foot-inst) at (current page.south west){%
+    \insertinstitute};
+\end{tikzpicture}%
+}
+\makeatother
+    
+% ----------------------------------------
+% Podnožje prezentacije
+% ----------------------------------------
+\makeatletter
+\setbeamertemplate{footline}{%
+\vspace{0.6cm}
+\begin{tikzpicture}[remember picture,overlay]
+\node[fill=svetlo-plava, anchor=south, minimum width=\paperwidth, minimum height=1mm, inner sep=0pt] (footer-line) at (current page.south){};
+\node[fill=svetlo-siva, anchor=south east, inner xsep=2mm, inner ysep=1mm, text=tamno-plava, font=\footnotesize] (footer-num) at (footer-line.north east) {\insertframenumber{}/\inserttotalframenumber{}};
+\node[anchor=south west, inner xsep=5mm, inner ysep=1mm, text=black, font=\footnotesize, minimum width=\paperwidth] (footer-link) at (footer-line.north west) {\href{\@webpageurl}{\texttt{\@webpage}}};
+\end{tikzpicture}%
+}
+\makeatother
+
+% ----------------------------------------
+% Zaglavlje prezentacije
+% ----------------------------------------
+\setbeamerfont{headline}{size=\Large}
+
+\makeatletter
+\setbeamertemplate{headline}{%
+\vspace{1.4cm}
+\begin{tikzpicture}[remember picture,overlay]
+\node[fill=tamno-siva, anchor=north, minimum width=\paperwidth, minimum height=1mm, inner sep=0pt] (header-line) at (current page.north){};
+\node[shading=haed-g, rectangle, anchor=north, minimum width=\paperwidth, minimum height=1.2cm] (header-title) at (header-line.south){};
+\node[rectangle, anchor=north west, minimum height=1.2cm, inner xsep=5mm, text=tamno-plava] (header-title-txt) at (header-line.south west){\insertsection};
+\node[anchor=north east, inner xsep=2mm, inner ysep=1.5mm, text=white, font=\footnotesize] (header-icons) at (header-line.south east) {%
+\href{http://vaz.mas.bg.ac.rs/}{\includegraphics[height=0.9cm]{vaz-logo-t}}
+\href{https://www.mas.bg.ac.rs/}{\includegraphics[height=0.9cm]{mfb-logo-t}}
+\href{https://www.bg.ac.rs/}{\includegraphics[height=0.9cm]{ub-logo-t}}};
+\node[fill=svetlo-siva, anchor=north, minimum width=\paperwidth, minimum height=1mm, inner sep=0pt] (header-line-bot) at (header-title.south){};
+\end{tikzpicture}%
+}
+
+\setbeamercolor{title2}{fg=white,bg=svetlo-plava}
+\setbeamerfont{frametitle}{size=\large}
+\makeatletter
+\setbeamertemplate{frametitle}{%
+	\nointerlineskip
+	\begin{beamercolorbox}[sep=0.1em,wd=\paperwidth]{title2}%
+	\centering
+	 \insertframetitle\strut
+	\end{beamercolorbox}%
+}%
+\makeatother
+
+% ----------------------------------------
+% Podešavanje prikaza
+% ----------------------------------------
+
+% Novi box
+\newtcolorbox{vazmfb_block}[1]{
+    before=\par\smallskip\centering,
+	colback=svetlo-siva,
+	colbacktitle=svetlo-plava,
+	coltitle=white,
+	coltext=tamno-plava,
+	colframe=svetlo-plava,
+	boxrule=1pt,
+	arc=0pt,
+	fonttitle=\bfseries,
+	title={\strut#1}
+}
+\newtcolorbox{cbox}[1][]{
+   before=\par\smallskip,
+   #1
+}
+
+% Nabrajanja
+\setbeamercolor*{enumerate item}{fg=tamno-plava}
+\setbeamercolor*{enumerate subitem}{fg=tamno-plava}
+\setbeamercolor*{enumerate subsubitem}{fg=tamno-plava}
+
+\makeatletter
+\setbeamertemplate{itemize item}{\color{tamno-plava}\normalsize\raise1.25pt\hbox{$\bullet$}}
+\setbeamertemplate{itemize subitem}{\color{tamno-plava}\normalsize\raise1.5pt\hbox{$\bullet$}}
+\setbeamertemplate{itemize subsubitem}{\color{tamno-plava}\normalsize\raise1.5pt\hbox{$\bullet$}}
+
+\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
+\setbeamertemplate{itemize/enumerate subbody begin}{\normalsize}
+\setbeamertemplate{itemize/enumerate subsubbody begin}{\normalsize}
+
+\setbeamertemplate{navigation symbols}{}
+\makeatother

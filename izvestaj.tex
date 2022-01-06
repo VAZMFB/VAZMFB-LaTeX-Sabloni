@@ -1,0 +1,478 @@
+% ----------------------------------------
+% ----------------------------------------
+% Šablon za izveštaj
+% Autor: Miloš D. Petrašinović <mpetrasinovic@mas.bg.ac.rs>
+% Masinski fakultet, Univerzitet u Beogradu
+% Katedra za vazduhoplovstvo, Struktura letelica
+% https://vazmfb.com
+% Beograd, 2021
+% ----------------------------------------
+% ----------------------------------------
+
+% ----------------------------------------
+% Definisanje korišćenih paketa i formata rada
+% ----------------------------------------
+\documentclass[12pt,oneside]{book}
+\usepackage{geometry}
+\usepackage[cmyk]{xcolor}
+\usepackage{listings}
+\usepackage[numbered]{matlab-prettifier}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[unicode]{hyperref}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage{emptypage}
+\usepackage{textcomp}
+\usepackage{placeins}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[toc,title]{appendix}
+\usepackage{nomencl}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage[figurename=Slika, tablename=Tabela]{caption}
+\usepackage{bigstrut}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tocbasic}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{fancyvrb}
+\usepackage{icomma}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{scalerel}
+
+% Folder za slike
+\graphicspath{{slike/}}
+
+% Boje
+\definecolor{tamno-plava}{cmyk}{1,0.79,0.32,0.17}
+\definecolor{svetlo-plava}{cmyk}{0.93,0.64,0.03,0}
+\definecolor{siva}{cmyk}{0.73,0.67,0.65,0.8}
+\definecolor{tamno-siva}{HTML}{aaaaaa}
+\definecolor{zelena}{cmyk}{1,0,1,0.5}
+
+% Brojevi sa zarezom
+%\mathcode`\.=\numexpr\mathcode`\,-"6000\relax
+
+% Matrice 
+\makeatletter
+\renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols #1}}
+\makeatother
+
+% Norme
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\diff}[1]{\mathrm{d}#1}
+
+% Matlab kod
+\lstset{
+  style = Matlab-editor,
+  basicstyle = \fontfamily{pcr}\selectfont\footnotesize, % if you want to use Courier
+  numberstyle = \tiny\color{siva},
+  commentstyle = \color{zelena},
+}
+
+% Merne jedinice
+\sisetup{
+  per-mode=fraction,
+  fraction-function=\tfrac
+}
+
+% Upravljanje razmacima
+\captionsetup[figure]{belowskip=-12pt}
+\setlength{\jot}{6pt}
+\raggedbottom
+\DeclareTOCStyleEntry[dynnumwidth]{tocline}{section}
+\DeclareTOCStyleEntry[dynnumwidth]{tocline}{figure}
+\DeclareTOCStyleEntry[dynnumwidth]{tocline}{table}
+
+% Zagrade u formulama
+\delimitershortfall=-1pt
+
+% Bez nastavljanja u sledecem redu
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% Format papira
+\geometry{
+  paperheight=297mm,
+  paperwidth=210mm,
+  top=20mm,
+  bottom=20mm,
+  right=20mm,
+  left=25mm,
+  headheight=16pt
+}
+
+% Indeks i nomenklatura
+\usepackage{makeidx}
+\makeindex 
+\usepackage[totoc]{idxlayout} 
+\makenomenclature
+
+% Prilozi
+\renewcommand\appendixtocname{Prilozi}
+\renewcommand\appendixname{Prilog}
+\AtBeginDocument{\renewcommand\appendixname{Prilog}}
+ 
+% ORCID
+\usetikzlibrary{calc}
+\usetikzlibrary{shadings} 
+\usetikzlibrary{svg.path}
+\definecolor{orcidlogocol}{HTML}{A6CE39}
+\tikzset{
+  orcidlogo/.pic={
+    \fill[orcidlogocol] svg{M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z};
+    \fill[white] svg{M86.3,186.2H70.9V79.1h15.4v48.4V186.2z}
+                 svg{M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z}
+                 svg{M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1C84.2,46.7,88.7,51.3,88.7,56.8z};
+  }
+}
+
+\newcommand\orcid[2]{\href{https://orcid.org/#2}{#1 \mbox{\scalerel*{
+\begin{tikzpicture}[yscale=-1,transform shape]
+\pic{orcidlogo};
+\end{tikzpicture}
+}{|}}}}
+
+% Stil naslova
+\titleformat{\chapter}[display]
+{\normalfont\Huge\bfseries\raggedright}{ 
+    \fcolorbox{siva}{siva}{\textcolor{white}{
+        \raisebox{10pt}[35pt][0pt]{ \thechapter }
+    }}}
+  {10pt}{\Huge}[\titleline{\color{siva}\vspace{10pt}\titlerule}]
+
+\makeatletter
+\renewcommand\@seccntformat[1]{%
+  \textcolor{siva}{\csname the#1\endcsname}
+}
+\makeatother
+
+% Stil zaglavlja
+\fancypagestyle{tekst}{
+    \setlength{\parskip}{6pt}
+    \fancyhf{}
+    \fancyhead[RO]{\bfseries\slshape \color{black}\leftmark}
+    \fancyhead[LO]{\bfseries}
+    \cfoot{\bfseries \color{black}\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\headrule}{\color{siva}\hrule}
+    \renewcommand{\footrulewidth}{0.4pt}
+    \renewcommand{\footrule}{\color{siva}\hrule}
+
+}
+
+\fancypagestyle{sazetak}{
+    \setlength{\parskip}{1pt}
+    \fancyhf{}
+    \fancyhead[RO]{\bfseries\slshape \leftmark}
+    \fancyhead[LO]{\bfseries}
+    \cfoot{\bfseries \color{black}\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\headrule}{\color{siva}\hrule}
+    \renewcommand{\footrulewidth}{0.4pt}
+    \renewcommand{\footrule}{\color{siva}\hrule}
+}
+
+\fancypagestyle{listing}{
+    \setlength{\parskip}{1pt}
+    \fancyhf{}
+    \fancyhead[RO]{\bfseries\slshape \leftmark}
+    \fancyhead[LO]{\bfseries}
+    \cfoot{\bfseries \color{black}\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\headrule}{\color{siva}\hrule}
+    \renewcommand{\footrulewidth}{0.4pt}
+    \renewcommand{\footrule}{\color{siva}\hrule}
+}
+
+\fancypagestyle{plain}{
+  \fancyhf{}%
+  \cfoot{\bfseries \color{black}\thepage}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\headrule}{}
+}
+
+% Podesavanja naslova slika
+\DeclareCaptionLabelSeparator{bar}{ - }
+\captionsetup{labelsep=bar}
+
+% ----------------------------------------
+% Definisanje poglavlja - POSVETA
+% ----------------------------------------
+\newenvironment{dedication}
+{
+   \cleardoublepage
+   \thispagestyle{empty}
+   \vspace*{\stretch{1}}
+   \hfill\begin{minipage}[t]{0.66\textwidth}
+   \raggedleft
+}
+{
+   \end{minipage}
+   \vspace*{\stretch{3}}
+   \clearpage
+}
+
+% ----------------------------------------
+% Definisanje elementa - CITAT
+% ----------------------------------------
+\makeatletter
+\renewcommand{\@chapapp}{}
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+% ----------------------------------------
+% POCETAK DOKUMENTA
+% ----------------------------------------
+\begin{document}
+
+% ----------------------------------------
+% NASLOVNA STRANA
+% ----------------------------------------
+\frontmatter
+\begin{titlepage}
+	\centering
+	\vspace*{\fill}
+	
+    \href{http://vaz.mas.bg.ac.rs/}{\includegraphics[height=2.5cm]{vaz-logo-t}}
+    \hspace{0.2cm}
+    \href{https://www.mas.bg.ac.rs/}{\includegraphics[height=2.5cm]{mfb-logo-t}}
+    \hspace{0.2cm}
+    \href{https://www.bg.ac.rs/}{\includegraphics[height=2.5cm]{ub-logo-t}}
+    
+    \vspace{0.5cm}
+    
+    %{\scshape \LARGE \href{https://www.bg.ac.rs/}{\textcolor{tamno-siva}{University of Belgrade}}\par \href{https://www.mas.bg.ac.rs/}{Faculty of Mechanical Engineering}\par \href{http://vaz.mas.bg.ac.rs/}{\textcolor{tamno-plava}{Aerospace Engineering Department}}\par} % Na engleskom 
+    {\scshape \LARGE \href{https://www.bg.ac.rs/}{\textcolor{tamno-siva}{Univerzitet u Beogradu}}\par \href{https://www.mas.bg.ac.rs/}{Mašinski fakultet}\par \href{http://vaz.mas.bg.ac.rs/}{\textcolor{tamno-plava}{Katedra za vazduhoplovstvo}}\par} % Na srpskom 
+    \vspace{0.5cm}
+    %
+
+\noindent\hspace{-0.5cm}\makebox[\linewidth]{\textcolor{svetlo-plava}{\rule{\paperwidth}{5pt}}}
+	
+	\vspace{5cm}
+	{\Large \itshape Naziv predmeta \par} % Uneti naziv predmeta
+	\vspace{0.5cm}
+	{\color{siva}\Huge \textbf{Naslov izveštaja} \par} % Uneti naslov i datom
+	\vspace{0.5cm}
+	{\Large \itshape \orcid{Ime Prezime}{0000-0000-0000-0000}\par} % Zameniti ime i prezime ali i 0000-0000-0000-0000 sa ORCID
+	\vspace{5mm}
+	{\large \href{https://vazmfb.com/predmet/}{\texttt{vazmfb.com/predmet/}}} % Uneti adresu
+	\vspace*{\fill}
+	\vfill
+
+	{\large \textsc{Beograd, 2021}} % Mesto i godina
+\end{titlepage}
+
+% ----------------------------------------
+% SADRŽAJ
+% ----------------------------------------
+\pagestyle{listing}
+\renewcommand\contentsname{Sadržaj}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents
+
+% ----------------------------------------
+% LISTING SLIKA I LISTING TABELA
+% ----------------------------------------
+\pagestyle{listing}
+\renewcommand\listfigurename{Listing slika}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\renewcommand\listtablename{Listing tabela}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename} 
+\listoftables
+
+% ----------------------------------------
+% LISTING OZNAKA I SKRAĆENICA
+% ----------------------------------------
+\renewcommand\nomname{Listing oznaka i skraćenica}
+\cleardoublepage
+\phantomsection
+\markboth{\MakeUppercase \nomname}{\MakeUppercase \nomname}
+\addcontentsline{toc}{chapter}{\nomname}
+\printnomenclature
+
+% ----------------------------------------
+% LISTING PROGRAMA
+% ----------------------------------------
+\renewcommand\lstlistingname{Program}
+\renewcommand\lstlistlistingname{Listing programa}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\lstlistoflistings
+
+% ----------------------------------------
+% POCETAK TEKSTA
+% ----------------------------------------
+\mainmatter
+\pagestyle{tekst}
+
+% ----------------------------------------
+% POGLAVLJE
+% ----------------------------------------
+\chapter{Prvo poglavlje}
+
+\begin{chapquote}{\textit{Ime Prezime}\index{Ime Prezime}\footnote{Tekst za fusnotu o ovom autoru}}
+``Nešto veoma pametno i vezano za temu...''
+\end{chapquote}
+
+Tekst prve glave 
+
+% ----------------------------------------
+% SEKCIJA
+% ----------------------------------------
+\section{Prva sekcija}
+
+Ubacivanje slike (slika \ref{orao}) u izveštaj % Referenciranje sa \label i \ref
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{orao}
+    \caption{Naslov slike}
+    \label{orao}
+\end{figure}
+
+% ----------------------------------------
+% PODSEKCIJA
+% ----------------------------------------
+\subsection{Prva podsekcija}
+
+Liste i podela papira na dva dela
+
+\vspace{1cm} % vertikalno rastojanje
+
+% Leva polovina
+\begin{minipage}{0.4\textwidth}
+    \begin{itemize}
+    	\item Prvi 
+    	\item Drugi
+    	\item Treci
+    \end{itemize}
+\end{minipage}
+% Desna polovina
+\begin{minipage}{0.4\textwidth}
+    \begin{enumerate}
+    	\item Prvi 
+    	\item Drugi
+    	\item Treci
+    \end{enumerate}
+\end{minipage}
+
+% ----------------------------------------
+% POGLAVLJE
+% ----------------------------------------
+\chapter{Novo poglavlje}
+
+\textit{Adresa internet stranice sa linkom:} % Italic tekst
+\url{https://vazmfb.com}
+
+\href{https://vazmfb.com}{Tekst sa linkom ka vazmfb.com}
+
+Jednačina \ref{eq1} % Na isti način se vrši referenciranje i jednacina i svih ostalih elemenata
+\begin{equation}
+    \label{eq1}
+    \Pi = \frac{1}{2} \int_{V} \bm{\varepsilon}^T\, \bm{\sigma}\, \text{d}V = \frac{1}{2} \int_{V} \bm{\varepsilon}^T\, \bm{c}\, \bm{\varepsilon}\, \diff{V}
+    \nomenclature{$\Pi$}{Potencijalna energija}
+    \nomenclature{$V$}{Zapremina tela}
+    \nomenclature{$\bm{\sigma}$}{Tenzor napona}
+    \nomenclature{$\bm{\varepsilon}$}{Vektor deformacija}
+    \nomenclature{$\bm{c}$}{Matrica elastičnih karakteristika materijala}
+\end{equation}
+
+Program primer:
+\lstinputlisting[language=Matlab, caption=Naslov programa]{programi/program.m}
+
+Primer \textbf{matrične jednačine} % Bold tekst
+\footnotesize
+\begin{equation}
+    \begin{bmatrix}
+       \sigma_{xx} \\
+       \sigma_{yy} \\
+       \sigma_{zz} \\
+       \sigma_{yz} \\
+       \sigma_{xz} \\
+       \sigma_{xy} \\
+    \end{bmatrix} 
+     = 
+    \begin{bmatrix}
+       c_{11} & c_{12} & c_{13} & c_{14} & c_{15} & c_{16} \\
+       & c_{22} & c_{23} & c_{24} & c_{25} & c_{26} \\
+       & & c_{33} & c_{34} & c_{35} & c_{36} \\
+       & & & c_{44} & c_{45} & c_{46} \\
+       & & & & c_{55} & c_{56} \\
+       \multicolumn{2}{c}{\text{Sim.}} & & & & c_{66} \\
+    \end{bmatrix} 
+    \begin{bmatrix}
+       \varepsilon_{xx} \\
+       \varepsilon_{yy} \\
+       \varepsilon_{zz} \\
+       \gamma_{yz} \\
+       \gamma_{xz} \\
+       \gamma_{xy} \\
+    \end{bmatrix} 
+\end{equation}
+
+% ----------------------------------------
+% PRILOZI
+% ----------------------------------------
+\begin{appendices}
+
+% ----------------------------------------
+% POGLAVLJE
+% ----------------------------------------
+\chapter{Neki prilog}
+Tekst priloga
+
+Primer tabele
+
+\begin{table}[H]
+\large
+\centering
+\caption{Naslov tabele}
+\begin{tabular}[H]{|l|c|}
+\hline
+Prva ćelija & Desno \\ \hline
+Dole & Dijagonala \\ \hline
+\end{tabular}
+\end{table}
+
+\end{appendices}
+
+% ----------------------------------------
+% INDEKS
+% ----------------------------------------
+% Uz tekst se pise \index{tekst}
+\renewcommand\indexname{Indeks}
+\printindex 
+
+% ----------------------------------------
+% KRAJ DOKUMENTA
+% ----------------------------------------
+\end{document}

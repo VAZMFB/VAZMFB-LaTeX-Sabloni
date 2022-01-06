@@ -1,0 +1,10 @@
+--------------------
+VAZMFB-LaTeX-Sabloni
+LaTeX Šabloni za Katedru za Vazduhoplovstvo Mašinskog Fakulteta Univerziteta u Beogradu 
+--------------------
+
+Release 1.0.0, 13.12.2021.
+
+- Prvo izdanje
+
+--------------------
