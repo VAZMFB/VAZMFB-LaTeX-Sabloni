@@ -5,7 +5,7 @@
 % Masinski fakultet, Univerzitet u Beogradu
 % Katedra za vazduhoplovstvo, Struktura letelica
 % https://vazmfb.com
-% Beograd, 2021
+% Beograd, 2023
 % ----------------------------------------
 % ----------------------------------------
 
@@ -23,6 +23,8 @@
 \usepackage[unicode]{hyperref}
 \usepackage{graphicx}
 \usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[style=ieee]{biblatex}
 \usepackage{emptypage}
 \usepackage{textcomp}
 \usepackage{placeins}
@@ -48,6 +50,9 @@
 \usepackage{bm}
 \usepackage{tikz}
 \usepackage{scalerel}
+
+% Literatura
+\addbibresource{literatura.bib}
 
 % Folder za slike
 \graphicspath{{slike/}}
@@ -280,7 +285,7 @@
 	\vspace*{\fill}
 	\vfill
 
-	{\large \textsc{Beograd, 2021}} % Mesto i godina
+	{\large \textsc{Beograd, 2023}} % Mesto i godina
 \end{titlepage}
 
 % ----------------------------------------
@@ -439,6 +444,21 @@ Primer \textbf{matrične jednačine} % Bold tekst
     \end{bmatrix} 
 \end{equation}
 
+Primer citiranja literature\cite{petrasinovic22}.
+ 
+% ----------------------------------------
+% LITERATURA
+% ----------------------------------------
+\pagestyle{listing}
+\hyphenpenalty=1
+\hbadness=1
+
+\renewcommand\bibname{Literatura}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname} 
+\printbibliography
+
 % ----------------------------------------
 % PRILOZI
 % ----------------------------------------
@@ -450,7 +470,7 @@ Primer \textbf{matrične jednačine} % Bold tekst
 \chapter{Neki prilog}
 Tekst priloga
 
-Primer tabele
+Primer tabele.
 
 \begin{table}[H]
 \large
