@@ -21,7 +21,7 @@ git clone https://github.com/VAZMFB/VAZMFB-LaTeX-Sabloni folder # change folder
 Zatim je moguće kompajlirati primer izveštaja (`izvestaj.tex`) ili primer prezentacije (`prezentacija.tex`). U okviru alata [Overleaf](https://www.overleaf.com/) napraviti novi projekat i otpremiti sva dokumenta u okviru dokumenata projekta, nakon čega je potrebno izabrati željeni `tex` dokument i pritiskom na `Recompile` izvršiti kompajliranje kako bi se dobio konačan PDF dokument.
 
 ## Licenca
-Copyright (C) 2021 Miloš Petrašinović <info@vazmfb.com>
+Copyright (C) 2023 Miloš Petrašinović <info@vazmfb.com>
  
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as 
